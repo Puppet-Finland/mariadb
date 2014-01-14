@@ -1,0 +1,6 @@
+### THIS FILE IS MANAGED BY PUPPET. ANY MANUAL CHANGES WILL GET OVERWRITTEN.
+
+check process mariadb with pidfile <%= scope.lookupvar('mariadb::params::pidfile') %>
+   start program "<%= scope.lookupvar('mariadb::params::service_start') %>"
+   stop program "<%= scope.lookupvar('mariadb::params::service_stop') %>"
+   alert <%= scope.lookupvar('mariadb::monit::monitor_email') %> with reminder on 480 cycles
