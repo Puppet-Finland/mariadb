@@ -5,9 +5,10 @@
 # mariadb server configuration.
 #
 # [*use_mariadb_repo*]
-#   Use MariaDB's official software repositories. Valid values 'yes' and 'no'. 
-#   Defaults to 'yes' because many operating systems don't yet have MariaDB in 
-#   their default repos/ports trees.
+#   Use MariaDB's official software repositories. Valid values 'yes', 'stable', 
+#   'testing', and 'no'. The default value, 'yes', and 'stable' install stable 
+#   releases from MariaDB repos. Value 'testing' uses testing releases and 'no' 
+#   uses whatever is available in the operating system's own repositories.
 # [*proxy_url*]
 #   The proxy URL used for fetching the MariaDB software repository public keys. 
 #   For example "http://proxy.domain.com:8888". Not needed if the node has 

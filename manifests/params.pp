@@ -14,9 +14,11 @@ class mariadb::params {
             $pidfile = '/var/run/mysqld/mysqld.pid'
 
             if $::operatingsystem == 'Debian' {
-                $mariadb_apt_repo_location = 'http://mirror.netinch.com/pub/mariadb/repo/5.5/debian'
+                $mariadb_stable_apt_repo_location = 'http://mirror.netinch.com/pub/mariadb/repo/5.5/debian'
+                $mariadb_testing_apt_repo_location = 'http://mirror.netinch.com/pub/mariadb/repo/10.0/debian'
             } elsif $::operatingsystem == 'Ubuntu' {
-                $mariadb_apt_repo_location = 'http://mirror.netinch.com/pub/mariadb/repo/5.5/ubuntu'
+                $mariadb_stable_apt_repo_location = 'http://mirror.netinch.com/pub/mariadb/repo/5.5/ubuntu'
+                $mariadb_testing_apt_repo_location = 'http://mirror.netinch.com/pub/mariadb/repo/10.0/ubuntu'
             }
         }
         default: {
@@ -27,9 +29,11 @@ class mariadb::params {
             $pidfile = '/var/run/mysqld/mysqld.pid'
 
             if $::operatingsystem == 'Debian' {
-                $mariadb_apt_repo_location = 'http://mirror.netinch.com/pub/mariadb/repo/5.5/debian'
+                $mariadb_stable_apt_repo_location = 'http://mirror.netinch.com/pub/mariadb/repo/5.5/debian'
+                $mariadb_testing_apt_repo_location = 'http://mirror.netinch.com/pub/mariadb/repo/10.0/debian'
             } elsif $::operatingsystem == 'Ubuntu' {
-                $mariadb_apt_repo_location = 'http://mirror.netinch.com/pub/mariadb/repo/5.5/ubuntu'
+                $mariadb_stable_apt_repo_location = 'http://mirror.netinch.com/pub/mariadb/repo/5.5/ubuntu'
+                $mariadb_testing_apt_repo_location = 'http://mirror.netinch.com/pub/mariadb/repo/10.0/ubuntu'
             }
         }
     }
