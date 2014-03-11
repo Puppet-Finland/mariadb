@@ -1,8 +1,13 @@
 #
 # == Class: mariadb
 #
-# Class to install and configure mariadb server. Currently does not support 
+# Class for installing and configuring a mariadb server.
+#
+# Packet filtering parts make use of mysql::packetfilter, so make sure that that 
+# module is available. Also note that currently this module does not support 
 # mariadb server configuration.
+#
+# == Parameters
 #
 # [*use_mariadb_repo*]
 #   Use MariaDB's official software repositories. Valid values 'yes', 'stable', 
@@ -14,13 +19,16 @@
 #   For example "http://proxy.domain.com:8888". Not needed if the node has 
 #   direct Internet connectivity, or if you're installing MariaDB from your 
 #   operating system repositories. Defaults to 'none' (do not use a proxy).
+# [*allow_addresses_ipv4*]
+#   A list of IPv4 address/network from which to allow connections. Use special
+#   value ['any'] to allow access from any IPv4 address. Defaults to
+#   ['127.0.0.1'].
+# [*allow_addresses_ipv6*]
+#   IPv6 address/network from which to allow connections. Use special value
+#   ['any'] to allow access from any IPv4 address. Defaults to ['::1'].
 # [*email*]
 #   Email address for notifications from monit. Defaults to top-scope variable 
 #   $::servermonitor.
-#
-# == Parameters
-#
-# None at the moment
 #
 # == Examples
 #
@@ -41,6 +49,8 @@ class mariadb
 (
     $use_mariadb_repo = 'yes',
     $proxy_url = 'none',
+    $allow_addresses_ipv4 = ['127.0.0.1'],
+    $allow_addresses_ipv6 = ['::1'],
     $email = $::servermonitor
 )
 {
@@ -55,6 +65,13 @@ if hiera('manage_mariadb', 'true') != 'false' {
 
     include mariadb::install
     include mariadb::service
+
+    if tagged('packetfilter') {
+        class { 'mysql::packetfilter':
+            allow_addresses_ipv4 => $allow_addresses_ipv4,
+            allow_addresses_ipv6 => $allow_addresses_ipv6,
+        }
+    }
 
     if tagged('monit') {
         class { 'mariadb::monit':
